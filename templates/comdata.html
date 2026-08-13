@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>company</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row g-0">
+        <div class="col-sm-6 col-md-8">
+            {% if company %}
+             {{company.company_name}}
+            {% endif %}
+        </div>
+        <div class="col-6 col-md-4">
+           {% if company %}
+             {{company.status}}
+            {% endif %}  
+        </div>
+    <div>
+       <h3>DRIVE :</h3> 
+       <table class="table table-striped">
+        <thead>
+            <tr class="table-success">
+                <th>Drive_id</th>
+                <th>Job_title</th>
+                <th>eiligibility</th>
+                <th>application_deadline</th>
+                <th>status</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% if placement_drive %}
+                {% for drive in placement_drive %}
+
+                    <tr class="table-success">
+                        <td class="table-success">{{drive.drive_id}}</td>
+                        <td class="table-success">{{drive.job_title}}</td>
+                        <td class="table-success">{{drive.eligibility}}</td>
+                        <td class="table-success">{{drive.application_deadline}}</td>
+                        <td class="table-success">{{drive.status}}</td>
+                        {% if {{drive.status}} =='pending' %}
+                         <td><form action="" method="">
+                                    <input type="hidden" name="drive_id" value="{{drive.drive_id}}">
+                                    <input type="hidden" name="action_type" value="approve">
+                                    <button type="submit" class="btn btn-success">Approve</button>
+
+                                </form>
+                                <form action="" method="">
+                                    <input type="hidden" name="drive_id" value="{{drive.drive_id}}">
+                                    <input type="hidden" name="action_type" value="approve">
+                                    <button type="submit" class="btn btn-success">Approve</button>
+
+                                </form>
+                         </td>
+                         
+                    </tr>
+        </tbody>
+       </table>
+    </div>
+</div>
+    </div>
+</body>
+</html>

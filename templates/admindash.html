@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <div style="background-color:#5b9bd5; padding:10px;">
+            <h2 style="margin:0;">Admin Dashboard</h2>
+        </div>
+
+        <div style="background-color:#e8fafa; padding:20px; margin-top:0; box-shadow:0px 4px 8px rgba(0,0,0,0.2);">
+            <p style="text-align:center; color:purple; font-size:20px; margin:0;">welcome Admin</p>
+            <p style="text-align:right; color:purple; font-size:20px; margin:0;"><a href="/logout" class="btn btn-danger">
+               Logout</a></p>
+        </div>
+        <div >
+            <button type="button" class="btn btn-primary" style="margin-left: 10px; margin-top: 10px;">
+                company <span class="badge bg-secondary">{{coun_company}}</span>
+            </button>
+            <button type="button" class="btn btn-primary" style="margin-left: 10px; margin-top: 10px;">
+                student <span class="badge bg-secondary">{{coun_student}}</span>
+            </button>
+            <button type="button" class="btn btn-primary" style="margin-left: 10px; margin-top: 10px;">
+                drive <span class="badge bg-secondary">{{coun_pd}}</span>
+            </button>
+
+            
+
+
+
+        </div>
+
+
+        <div style="margin-top: 5%; margin-left: 5%;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <form>
+                    <label for="search" style="font-weight:bold;">search company by their name</label>
+                    <input type="text" id="search" name="query" placeholder="Search" style="width:250px; height:30px;" value="{{request.args.get('query','') }}">
+                    <button style="height:30px;">Search</button></form>
+                </div>
+
+                    <a href="student.html" style="background-color:#bec92a; color:white; padding:8px 16px; text-decoration:none; border-radius:5px;">
+                        go to Student</a>
+            </div>
+
+
+        </div>
+
+        <div>
+            {% if companies %}
+            <table border="1" width="100%">
+                <thead>
+                    <tr>
+                        <th>Company_id</th>
+                        <th>company_name</th>
+                        <th>hr_cont</th>
+                        <th>Website</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    {% for company in companies %}
+                    <tr>
+                        <td><form action=" " method="GET">
+                                    <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                    
+                                    <button type="submit" class="btn btn-success">{{company.company_id}}</button>
+
+                                </form>
+                        <td>{{company.company_name}}</td>
+                        <td>{{company.hr_cont}}</td>
+                        <td>{{company.website}}</td>
+                        <td>
+                            {% if company.status!="approved"}
+                                <form action="/api/adminDashboard" method="PUT">
+                                    <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                    <input type="hidden" name="action_type" value="approve">
+                                    <button type="submit" class="btn btn-success">Approve</button>
+
+                                </form>
+                                <form action="/api/adminDashboard" method="PUT">
+                                        <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                        <input type="hidden" name="action_type" value="delete">
+                                        <button type="submit" class="btn btn-success">Delete</button>
+
+                                </form>
+                            {% else %}
+                                <form action="/api/adminDashboard" method="PUT">
+                                        <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                        <input type="hidden" name="action_type" value="delete">
+                                        <button type="submit" class="btn btn-success">Delete</button>
+
+                                </form>
+                                <form action="/api/adminDashboard" method="PUT">
+                                        <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                        <input type="hidden" name="action_type" value="blacklist">
+                                        <button type="submit" class="btn btn-success">blacklist</button>
+
+                                </form>
+                                
+                            {% endif %}
+                             
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+
+                    <p><h3>company for approved</h3></p>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Company_id</th>
+                                <th>company_name</th>
+                                <th>hr_cont</th>
+                                <th>Website</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for company in com_table %}
+                            <tr>
+                                <td><form action=" " method="GET">
+                                    <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                    
+                                    <button type="submit" class="btn btn-success">{{company.company_id}}</button>
+
+                                </form></td>
+                                <td>{{company.company_name}}</td>
+                                <td>{{company.hr_cont}}</td>
+                                <td>{{company.website}}</td>
+                                <td>
+                                    <form action="/api/adminDashboard" method="PUT">
+                                        <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                        <input type="hidden" name="action_type" value="approve">
+                                        <button type="submit" class="btn btn-success">Approve</button>
+
+                                    </form>
+                                    <form action="/api/adminDashboard" method="PUT">
+                                        <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                        <input type="hidden" name="action_type" value="delete">
+                                        <button type="submit" class="btn btn-success">Delete</button>
+
+                                    </form>
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        
+                        
+                    </table>
+                    <p>approved company</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Company_id</th>
+                                <th>company_name</th> 
+                                <th>hr_cont</th>
+                                <th>Website</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for company in com_table2 %}
+                            <tr>
+                                <td><form action=" " method="GET">
+                                    <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                    
+                                    <button type="submit" class="btn btn-success">{{company.company_id}}</button>
+
+                                </form></td>
+                                <td>{{company.company_name}}</td>
+                                <td>{{company.hr_cont}}</td>
+                                <td>{{company.website}}</td>
+                                <td><form action="/api/adminDashboard" method="PUT">
+                                        <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                        <input type="hidden" name="action_type" value="delete">
+                                        <button type="submit" class="btn btn-success">Delete</button>
+
+                                    </form>
+                                    <form action="/api/adminDashboard" method="PUT">
+                                        <input type="hidden" name="company_id" value="{{company.company_id}}">
+                                        <input type="hidden" name="action_type" value="blacklist">
+                                        <button type="submit" class="btn btn-success">blacklist</button>
+
+                                    </form>
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+
+                    </table>
+            {% endif %}       
+        </div>
+    </div>
+    
+</body>
+</html>

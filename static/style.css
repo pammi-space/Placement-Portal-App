@@ -1,0 +1,38 @@
+
+#main, #canva{
+    
+    margin: 64;
+    height: 850px;
+    background-color: rgb(244, 255, 254);
+}
+#canva{
+    
+    width:60%;
+    
+    height: 700px;
+    margin-left:20%;
+    margin-top: 2%;
+}
+.card{
+    
+    width:60%;
+    height: 500px;
+    margin-left:20%;
+    
+}
+
+.mb-3{
+    
+   margin-left:2%;
+   margin-right: 2%; 
+}
+.form{
+    margin-left:2%;
+    margin-right: 2%;
+    
+
+}
+.col-10{
+   margin-left:40%;
+   
+}
