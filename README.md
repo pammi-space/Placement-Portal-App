@@ -1,4 +1,5 @@
 # Placement-Portal-App
+<<<<<<< HEAD
 Flask-based Placement Portal Application with role-based dashboards for Admin, Company, and Students.<br>
 <b>Placement Portal Application (MAD-I)</b> is a web-based platform built using Flask, SQLite, and SQLAlchemy to streamline the placement process for students, companies, and administrators.
 
@@ -13,3 +14,6 @@ Flask-based Placement Portal Application with role-based dashboards for Admin, C
 This project demonstrates <b>role-based authentication, database relationships, and real-world workflow automation.</b> It is designed as a practice project to strengthen backend development skills and can be extended with APIs, charts, responsive UI, and security enhancements.
 
 
+=======
+
+>>>>>>> ed161d37cb058d7d60b4d8ccdfc2f61e4256d8cb
